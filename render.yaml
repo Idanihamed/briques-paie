@@ -1,0 +1,26 @@
+# Déploiement Render (« Blueprint »). Le dépôt git doit contenir le dossier backend/.
+# Les secrets (DATABASE_URL, FACE_KEY) se saisissent dans le tableau de bord Render, jamais dans ce fichier.
+services:
+  - type: web
+    name: briques-paie
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    # « free » se met en veille après 15 min : la première requête suivante prend ~1 min
+    # et le moteur facial a besoin d'environ 512 Mo. Pour un usage réel : plan « starter » ou supérieur.
+    plan: free   # démonstration gratuite. Pour un usage réel : « starter » (pas de mise en veille, 512 Mo+)
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL        # Supabase > Connect > Session pooler (port 5432)
+        sync: false
+      - key: FACE_KEY            # 64 caractères hexadécimaux ; la MÊME clé que celle utilisée en local
+        sync: false
+      - key: FACE_WARMUP         # false = le moteur facial ne se charge qu'à la 1re vérification (hébergement 512 Mo)
+        value: "false"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS        # laisser vide si l'application web est servie par l'API (même adresse)
+        value: ""

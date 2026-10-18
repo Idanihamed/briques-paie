@@ -1,0 +1,39 @@
+{
+  "name": "briques-paie-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API Node.js / Express pour l'application Briques & Paie (base Supabase PostgreSQL)",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:schema": "node scripts/apply-schema.js",
+    "backup": "node scripts/backup.js",
+    "create-admin": "node scripts/create-admin.js",
+    "set-prices": "node scripts/set-prices.js",
+    "local": "node scripts/local-server.js",
+    "test": "node --test --test-concurrency=1 test/*.test.js"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.22.0",
+    "@tensorflow/tfjs-backend-wasm": "^4.22.0",
+    "@vladmandic/face-api": "^1.7.15",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "jpeg-js": "^0.4.4",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.12.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.2.12"
+  }
+}
